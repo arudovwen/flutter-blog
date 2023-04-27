@@ -5,7 +5,7 @@ const routes = [
     path: "/",
     name: "blog",
     meta: {
-      title: "Blog",
+      title: "Flutter Blog",
       metaTags: [
         {
           name: "description",

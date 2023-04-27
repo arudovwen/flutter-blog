@@ -1,3 +1,3 @@
 <template>
-  <div>Single</div>
+  <div>All</div>
 </template>
