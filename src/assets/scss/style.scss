@@ -3,10 +3,15 @@
 
 :root {
   --primary: #1473e6;
+  --black: #000;
   --headerColor: #2c2c2c;
   --textColor: #6e6e6e;
   --subColor: #4b4b4b;
   --white: #fff;
+
+  --md: 992px;
+  --sm: 768px;
+  --xs: 576px;
 }
 
 .container {
@@ -48,4 +53,7 @@
 }
 .bg--white {
   background-color: var(--white);
+}
+.bold{
+  font-weight: 500;
 }

@@ -1,11 +1,15 @@
 <template>
   <nav>
     <div class="logo">
-      <img src="@/assets/images/logo.svg" width="80" height="80" alt="logo" />
+      <router-link to="/">
+        <img src="@/assets/images/logo.svg" width="80" height="80" alt="logo"
+      /></router-link>
     </div>
     <div class="socials" role="img" aria-label="Site social links">
       <div class="socials__icon" v-for="icon in socialIcons" :key="icon.alt">
-        <img :src="icon.src" :alt="icon.alt" width="20" />
+        <router-link to="#">
+          <img :src="icon.src" :alt="icon.alt" width="20"
+        /></router-link>
       </div>
     </div>
   </nav>

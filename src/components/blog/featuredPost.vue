@@ -1,36 +1,42 @@
 <template>
   <article class="article">
-    <img class="article__image" src="@/assets/images/largeflutter.png" />
+    <div class="article__image__container">
+      <img class="article__image" :src="featured.photo" />
+    </div>
     <div class="article__content">
       <div class="article__sub">
-        <span class="article__tag">Front end</span>
+        <span class="article__tag">{{ featured.tag }}</span>
         <span class="article__circle" />
         <span class="article__date">1 Hour Ago</span>
       </div>
-      <h1 class="article__header">Optimizing CSS for faster page loads</h1>
+      <h1 class="article__header">{{ featured.title }}</h1>
       <div class="article__body">
-        <p class="">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, totam
-          ullam assumenda itaque vero velit, sit enim nam modi, laboriosam harum
-          ab alias neque culpa voluptatem recusandae temporibus nemo esse.
-        </p>
-        <p class="">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, totam
-          ullam assumenda itaque vero velit, sit enim nam modi, laboriosam harum
-          ab alias neque culpa voluptatem recusandae temporibus nemo esse.
-        </p>
+        <p class="article__text">{{ truncatedText }}</p>
       </div>
 
       <div class="article__footer">
         <span class="article__footer__time">3 Min Read</span>
-        <span class="article__footer__link"
-          >Read more <img src="@/assets/images/arrow.svg"
-        /></span>
+        <router-link :to="`/post/${featured.title}/${featured.id}`">
+          <span class="article__footer__link"
+            >Read more <img src="@/assets/images/arrow.svg"
+          /></span>
+        </router-link>
       </div>
     </div>
   </article>
 </template>
-<script setup></script>
+<script setup>
+import { defineProps, computed } from "vue";
+
+const props = defineProps({
+  featured: {
+    type: Object,
+  },
+});
+const truncatedText = computed(() => {
+  return `${props.featured.content.substr(0, 500)}`;
+});
+</script>
 <style lang="scss" scoped>
 .article {
   display: flex;
@@ -40,16 +46,32 @@
   border-radius: 5px;
   padding: 8px;
   margin-bottom: 52px;
-  .article__image {
-    flex: 1;
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    column-gap: 0;
+    row-gap: 10px;
+  }
+  .article__image__container {
+    width: 500px;
     height: 280px;
-    width: 100%;
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+      height: auto;
+    }
+    .article__image {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
   }
   .article__content {
-    width: 60%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 2px;
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+    }
     .article__sub {
       display: flex;
       column-gap: 4px;
@@ -80,6 +102,11 @@
       font-size: 22px;
       line-height: 26px;
       color: var(--headerColor);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 600px;
+      margin-bottom: 8px;
     }
     .article__body {
       font-style: normal;
@@ -88,13 +115,21 @@
       line-height: 21px;
       color: var(--textColor);
       flex: 1;
+
       .article__text {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        height: 106px;
+        overflow: hidden;
+        margin: 0;
       }
     }
     .article__footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-top: 36px;
       .article__footer__time {
         font-weight: 500;
         font-size: 12px;
