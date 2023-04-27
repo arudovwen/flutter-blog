@@ -1,26 +1,113 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "blog",
+    meta: {
+      title: "Blog",
+      metaTags: [
+        {
+          name: "description",
+          content: "Blog page",
+        },
+        {
+          property: "og:description",
+          content: "Blog page",
+        },
+      ],
+    },
+    component: () =>
+      import(/* webpackChunkName: "blog" */ "../views/BlogView.vue"),
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: "/post/:name/:id",
+    name: "post",
+    meta: {
+      title: "Post",
+      metaTags: [
+        {
+          name: "description",
+          content: "Post page",
+        },
+        {
+          property: "og:description",
+          content: "Post page",
+        },
+      ],
+    },
+
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      import(/* webpackChunkName: "post" */ "../views/PostView.vue"),
   },
 ];
+
+// handle scroll
+const scrollBehavior = (to, from, savedPosition) => {
+  return savedPosition || { top: 0, left: 0 };
+};
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  scrollBehavior,
+});
+
+// handle page title, meta tags
+router.beforeEach((to, from, next) => {
+  const nearestWithTitle = to.matched
+    .slice()
+    .reverse()
+    .find((r) => r.meta && r.meta.title);
+
+  const titleFromParams = to.params.name;
+
+  const nearestWithMeta = to.matched
+    .slice()
+    .reverse()
+    .find((r) => r.meta && r.meta.metaTags);
+
+  const previousNearestWithMeta = from.matched
+    .slice()
+    .reverse()
+    .find((r) => r.meta && r.meta.metaTags);
+
+  if (nearestWithTitle) {
+    if (titleFromParams) {
+      document.title = `${titleFromParams} - ${nearestWithTitle.meta.title}`;
+    } else {
+      document.title = nearestWithTitle.meta.title;
+    }
+  } else if (previousNearestWithMeta) {
+    document.title = previousNearestWithMeta.meta.title;
+  }
+
+  // Remove any stale meta tags from the document using the key attribute we set below.
+  Array.from(document.querySelectorAll("[data-vue-router-controlled]")).map(
+    (el) => el.parentNode.removeChild(el)
+  );
+
+  // Skip rendering meta tags if there are none.
+  if (!nearestWithMeta) return next();
+
+  // Turn the meta tag definitions into actual elements in the head.
+  nearestWithMeta.meta.metaTags
+    .map((tagDef) => {
+      const tag = document.createElement("meta");
+
+      Object.keys(tagDef).forEach((key) => {
+        tag.setAttribute(key, tagDef[key]);
+      });
+
+      // We use this to track which meta tags we create so we don't interfere with other ones.
+      tag.setAttribute("data-vue-router-controlled", "");
+
+      return tag;
+    })
+    // Add the meta tags to the document head.
+    .forEach((tag) => document.head.appendChild(tag));
+
+  next();
 });
 
 export default router;
