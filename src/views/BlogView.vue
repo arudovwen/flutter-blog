@@ -6,8 +6,9 @@
       <div v-else>
         <FeaturedPost />
         <AllPost />
-        <CallToAction />
       </div>
+      <InfiniteLoading @infinite="fetchArticles" />
+      <CallToAction v-if="!isLoading" />
     </template>
   </default-layout>
 </template>
@@ -15,6 +16,8 @@
 <script setup>
 import { provide, ref } from "vue";
 import { useStore } from "vuex";
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css";
 
 import LoaderComponent from "@/components/loaderComponent.vue";
 import FeaturedPost from "@/components/blog/featuredPost.vue";
@@ -27,10 +30,6 @@ let page = 1;
 let perPage = 10;
 const isLoading = ref(true);
 const store = useStore();
-
-setTimeout(() => {
-  isLoading.value = false;
-}, 2000);
 
 // Methods
 const fetchArticles = async ($state) => {

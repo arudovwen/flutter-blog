@@ -3,19 +3,14 @@
   <div class="posts">
     <SinglePost v-for="post in posts" :key="post.id" :post="post" />
   </div>
-  <InfiniteLoading @infinite="fetchArticles" />
 </template>
 <script setup>
-import { computed, inject } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
-import InfiniteLoading from "v3-infinite-loading";
-import "v3-infinite-loading/lib/style.css";
 
 import SinglePost from "./singlePost.vue";
 
 const store = useStore();
-
-const fetchArticles = inject("fetchArticles");
 
 const posts = computed(() => store.getters.posts.slice(1));
 </script>
