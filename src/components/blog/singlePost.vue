@@ -52,11 +52,16 @@ const truncatedText = computed(() => {
   .article__image__container {
     width: 100%;
     height: 200px;
+    overflow: hidden;
 
     .article__image {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      &:hover {
+        -webkit-animation: kenburns-top 5s ease-out both;
+        animation: kenburns-top 5s ease-out both;
+      }
     }
   }
   .article__content {

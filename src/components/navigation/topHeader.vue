@@ -53,6 +53,7 @@ nav {
       position: relative;
       height: 20px;
       width: 20px;
+
       &::after {
         content: "";
         position: absolute;

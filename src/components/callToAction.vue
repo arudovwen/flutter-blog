@@ -73,7 +73,9 @@
     font-size: 18px;
     cursor: pointer;
     &:hover {
-      opacity: 0.8;
+      opacity: 0.9;
+      -webkit-animation: heartbeat 1.5s ease-in-out both;
+      animation: heartbeat 1.5s ease-in-out both;
     }
     &.cta__bg--black {
       background-color: var(--black);

@@ -54,6 +54,7 @@ const truncatedText = computed(() => {
   .article__image__container {
     width: 500px;
     height: 280px;
+    overflow: hidden;
     @media only screen and (max-width: 768px) {
       width: 100%;
       height: auto;
@@ -62,6 +63,10 @@ const truncatedText = computed(() => {
       width: 100%;
       height: 100%;
       object-fit: fill;
+      &:hover {
+        -webkit-animation: kenburns-top 5s ease-out both;
+        animation: kenburns-top 5s ease-out both;
+      }
     }
   }
   .article__content {
