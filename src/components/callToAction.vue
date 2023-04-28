@@ -33,6 +33,7 @@
     font-size: 32px;
     line-height: 38px;
     margin-bottom: 12px;
+    color: var(--headerColor);
     @media only screen and (max-width: 1024px) {
       font-size: 28px;
       line-height: 32px;

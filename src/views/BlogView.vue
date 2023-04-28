@@ -1,22 +1,29 @@
 <template>
   <default-layout>
     <template #content>
-      <section>
+      <LoaderComponent v-if="isLoading" />
+
+      <div v-else>
         <FeaturedPost :featured="featured" />
-      </section>
-      <section><AllPost /></section>
-      <section><CallToAction /></section>
+        <AllPost />
+        <CallToAction />
+      </div>
     </template>
   </default-layout>
 </template>
 
 <script setup>
-import { provide, computed } from "vue";
+import { provide, computed, ref } from "vue";
+import LoaderComponent from "@/components/loaderComponent.vue";
 import FeaturedPost from "@/components/blog/featuredPost.vue";
 import AllPost from "@/components/blog/allPosts.vue";
 import DefaultLayout from "@/components/layouts/defaultLayout.vue";
 import CallToAction from "@/components/callToAction.vue";
 
+const isLoading = ref(true);
+setTimeout(() => {
+  isLoading.value = false;
+}, 2000);
 const content = [
   {
     id: "1",
