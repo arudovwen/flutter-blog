@@ -1,8 +1,8 @@
 <template>
   <PostDetails />
-  <MoreArticles />
+  <MorePosts />
 </template>
 <script setup>
-import MoreArticles from "./moreArticles.vue";
+import MorePosts from "./morePosts.vue";
 import PostDetails from "./postDetails.vue";
 </script>

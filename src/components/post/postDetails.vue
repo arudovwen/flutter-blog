@@ -1,28 +1,37 @@
 <template>
-  <section class="article">
-    <div class="article__image__container">
-      <img class="article__image" :src="post.photo" />
+  <section class="post" v-if="post">
+    <div class="post__image__container" v-if="post?.parselyMeta">
+      <img
+        class="post__image"
+        :src="post?.parselyMeta['parsely-image-url']"
+        :alt="post?.slug"
+      />
     </div>
-    <div class="article__content">
-      <div class="article__sub">
-        <span class="article__tag">By {{ post.tag }}</span>
+    <div class="post__content" v-if="post?.parselyMeta">
+      <div class="post__sub">
+        <span class="post__tag"
+          >By {{ post?.parselyMeta["parsely-author"]?.toString() }}</span
+        >
 
-        <span class="article__date">1 Hour Ago</span>
+        <span class="post__date">{{ moment(post.date).fromNow() }}</span>
       </div>
-      <h1 class="article__header">{{ post.title }}</h1>
-      <div class="article__body">
-        {{ post.content }}
-      </div>
+      <h1 class="post__header">{{ post?.parselyMeta["parsely-title"] }}</h1>
+      <div class="post__body" v-html="post.content.rendered"></div>
     </div>
   </section>
 </template>
 <script setup>
-import { inject } from "vue";
+import { computed } from "vue";
+import moment from "moment";
+import { useStore } from "vuex";
 
-const post = inject("post");
+const store = useStore();
+const post = computed(() => {
+  return store.getters.post;
+});
 </script>
 <style lang="scss" scoped>
-.article {
+.post {
   display: flex;
   row-gap: 15px;
   background: #ffffff;
@@ -30,17 +39,17 @@ const post = inject("post");
   max-width: 768px;
   margin: 0 auto 8em;
 
-  .article__image__container {
+  .post__image__container {
     width: 100%;
     height: 200px;
 
-    .article__image {
+    .post__image {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
   }
-  .article__content {
+  .post__content {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -48,25 +57,25 @@ const post = inject("post");
 
     width: 100%;
 
-    .article__sub {
+    .post__sub {
       display: flex;
       column-gap: 4px;
       align-items: center;
       margin-bottom: 10px;
-      .article__tag {
+      .post__tag {
         font-weight: 500;
         font-size: 12px;
         line-height: 14px;
         color: var(--subColor);
       }
-      .article__date {
+      .post__date {
         font-weight: 500;
         font-size: 12px;
         line-height: 14px;
         color: var(--textColor);
       }
     }
-    .article__header {
+    .post__header {
       font-style: normal;
       font-weight: 900;
       font-size: 32px;
@@ -74,7 +83,7 @@ const post = inject("post");
       color: var(--headerColor);
       margin-bottom: 23px;
     }
-    .article__body {
+    .post__body {
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -83,7 +92,7 @@ const post = inject("post");
       flex: 1;
       height: 74px;
 
-      .article__text {
+      .post__text {
       }
     }
   }

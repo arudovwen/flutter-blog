@@ -1,55 +1,28 @@
 import axios from "axios";
-// import { useToast } from "vue-toast-notification";
-import { useRoute } from "vue-router";
-
-//pass new generated access token here
-//const token = localStorage.getItem('user-token')
 
 //apply base url for axios
 const API_URL = process.env.VUE_APP_API_URL;
-// const toast = useToast();
-const route = useRoute();
+
 const axiosApi = axios.create({
   baseURL: API_URL,
 });
 
-axiosApi.defaults.withCredentials = true;
-axiosApi.interceptors.response.use(
-  (response) => response,
-
-  (error) => {
-    console.log(error);
-    if (
-      error.response.status === 401 &&
-      error.code === "ERR_BAD_REQUEST" &&
-      error.response.data.includes("Microsoft.IdentityModel.Tokens")
-    ) {
-      if (localStorage.getItem("loggedUser")) {
-        // toast.info("Your session as expired", {
-        //   position: "bottom",
-        // });
-      }
-
-      localStorage.clear();
-      window.location.href = `/login?info=session_expired&redirected_from=${route.path}`;
-    } else {
-      return Promise.reject(error);
-    }
-  }
-);
-
+// Get method call
 export async function get(url, config = {}) {
   return await axiosApi.get(url, { ...config });
 }
 
+// Post method call
 export async function post(url, data, config = {}) {
   return axiosApi.post(url, { ...data }, { ...config });
 }
 
+// Put method call
 export async function put(url, data, config = {}) {
   return axiosApi.put(url, { ...data }, { ...config });
 }
 
+// Delete method call
 export async function del(url, config = {}) {
   return await axiosApi.delete(url, { ...config });
 }

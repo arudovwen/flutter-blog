@@ -1,27 +1,32 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <article class="article">
-    <div class="article__image__container">
+  <article class="post" v-if="post">
+    <div class="post__image__container" v-if="post?.parselyMeta">
       <img
-        class="article__image"
+        class="post__image"
         :src="post.parselyMeta['parsely-image-url']"
+        :alt="post.slug"
       />
     </div>
-    <div class="article__content">
-      <div class="article__sub">
-        <span class="article__tag">{{
+    <div class="post__content" v-if="post?.parselyMeta">
+      <div class="post__sub">
+        <span class="post__tag">{{
           post.parselyMeta["parsely-section"]
         }}</span>
-        <span class="article__circle" />
-        <span class="article__date">{{ moment(post.date).fromNow() }}</span>
+        <span class="post__circle" />
+        <span class="post__date">{{ moment(post.date).fromNow() }}</span>
       </div>
-      <h1 class="article__header">{{ post.parselyMeta["parsely-title"] }}</h1>
-      <div class="article__body" v-html="truncatedText"></div>
+      <h1 class="post__header">{{ post.parselyMeta["parsely-title"] }}</h1>
+      <div class="post__body" v-html="truncatedText"></div>
 
-      <div class="article__footer">
-        <span class="article__footer__time">3 Min Read</span>
-        <router-link :to="`/post/${post.slug}/${post.id}`">
-          <span class="article__footer__link"
+      <div class="post__footer">
+        <span class="post__footer__time">3 Min Read</span>
+        <router-link
+          :to="`/post/${encodeURIComponent(
+            post.parselyMeta['parsely-title'].replaceAll(' ', '-')
+          )}/${post.id}`"
+        >
+          <span class="post__footer__link"
             >Read more <img src="@/assets/images/arrow.svg"
           /></span>
         </router-link>
@@ -38,13 +43,16 @@ const props = defineProps({
     type: Object,
   },
 });
-// eslint-disable-next-line no-unused-vars
+
+//truncate excerpt text
 const truncatedText = computed(() => {
-  return `${props.post.excerpt.rendered.substr(0, 200)}`;
+  return `${props.post.excerpt.rendered.substr(0, 200)}${
+    props.post.excerpt.rendered.length >= 200 ? "..." : ""
+  }`;
 });
 </script>
 <style lang="scss" scoped>
-.article {
+.post {
   display: flex;
   row-gap: 15px;
   background: #ffffff;
@@ -54,12 +62,12 @@ const truncatedText = computed(() => {
 
   flex-direction: column;
 
-  .article__image__container {
+  .post__image__container {
     width: 100%;
     height: 200px;
     overflow: hidden;
 
-    .article__image {
+    .post__image {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -69,38 +77,38 @@ const truncatedText = computed(() => {
       }
     }
   }
-  .article__content {
+  .post__content {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 2px;
     width: 100%;
 
-    .article__sub {
+    .post__sub {
       display: flex;
       column-gap: 4px;
       align-items: center;
       margin-bottom: 8px;
-      .article__tag {
+      .post__tag {
         font-weight: 700;
         font-size: 12px;
         line-height: 14px;
         color: var(--subColor);
       }
-      .article__circle {
+      .post__circle {
         width: 2px;
         height: 2px;
         border-radius: 50%;
         background-color: var(--textColor);
       }
-      .article__date {
+      .post__date {
         font-weight: 500;
         font-size: 12px;
         line-height: 14px;
         color: var(--textColor);
       }
     }
-    .article__header {
+    .post__header {
       font-style: normal;
       font-weight: 900;
       font-size: 22px;
@@ -126,7 +134,7 @@ const truncatedText = computed(() => {
         white-space: normal;
       }
     }
-    .article__body {
+    .post__body {
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -141,18 +149,18 @@ const truncatedText = computed(() => {
         overflow: hidden;
       }
     }
-    .article__footer {
+    .post__footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-top: 20px;
-      .article__footer__time {
+      .post__footer__time {
         font-weight: 500;
         font-size: 12px;
         line-height: 14px;
         color: var(--textColor);
       }
-      .article__footer__link {
+      .post__footer__link {
         font-weight: 500;
         font-size: 12px;
         line-height: 14px;

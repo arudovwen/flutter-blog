@@ -6,11 +6,13 @@ export default createStore({
     posts: [],
     featuredPost: {},
     post: {},
+    morePosts: [],
   },
   getters: {
     posts: (state) => state.posts,
     post: (state) => state.post,
     featuredPost: (state) => state.featuredPost,
+    morePosts: (state) => state.morePosts,
   },
   mutations: {
     SET_POSTS(state, data) {
@@ -19,6 +21,9 @@ export default createStore({
     },
     SET_POST(state, data) {
       state.post = data;
+    },
+    SET_MORE_POSTS(state, data) {
+      state.morePosts = data;
     },
   },
   actions: {},

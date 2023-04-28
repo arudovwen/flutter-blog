@@ -7,7 +7,9 @@
         <FeaturedPost />
         <AllPost />
       </div>
-      <InfiniteLoading @infinite="fetchArticles" />
+      <div class="infinite__loader">
+        <InfiniteLoading @infinite="fetchPosts" />
+      </div>
       <CallToAction v-if="!isLoading" />
     </template>
   </default-layout>
@@ -31,8 +33,8 @@ let perPage = 10;
 const isLoading = ref(true);
 const store = useStore();
 
-// Methods
-const fetchArticles = async ($state) => {
+// Fetch all posts
+const fetchPosts = async ($state) => {
   getPosts({ page, perPage })
     .then(({ data }) => {
       isLoading.value = false;
@@ -49,5 +51,24 @@ const fetchArticles = async ($state) => {
     });
 };
 
-provide("fetchArticles", fetchArticles);
+provide("fetchPosts", fetchPosts);
 </script>
+<style scoped lang="scss">
+.infinite__loader {
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-weight: 300;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto 10px auto;
+  background: #eceef0;
+  border-radius: 10px;
+}
+</style>
