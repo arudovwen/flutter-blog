@@ -1,24 +1,19 @@
 import axios from "axios";
-import { useToast } from "vue-toast-notification";
+// import { useToast } from "vue-toast-notification";
 import { useRoute } from "vue-router";
-import store from "../store";
+
 //pass new generated access token here
 //const token = localStorage.getItem('user-token')
 
 //apply base url for axios
-const API_URL = process.env.VUE_APP_URL;
-const toast = useToast();
+const API_URL = process.env.VUE_APP_API_URL;
+// const toast = useToast();
 const route = useRoute();
 const axiosApi = axios.create({
   baseURL: API_URL,
 });
 
 axiosApi.defaults.withCredentials = true;
-
-axiosApi.defaults.headers.common[
-  "Authorization"
-] = `Bearer ${store.getters.accessToken}`;
-
 axiosApi.interceptors.response.use(
   (response) => response,
 
@@ -30,9 +25,9 @@ axiosApi.interceptors.response.use(
       error.response.data.includes("Microsoft.IdentityModel.Tokens")
     ) {
       if (localStorage.getItem("loggedUser")) {
-        toast.info("Your session as expired", {
-          position: "bottom",
-        });
+        // toast.info("Your session as expired", {
+        //   position: "bottom",
+        // });
       }
 
       localStorage.clear();

@@ -1,26 +1,14 @@
-import urls from "../helpers/url_helpers";
 import { get } from "../helpers/api_helpers";
-import store from "../store";
 import { withRetryHandling } from "../utils/retry-handling";
 
-const config = {
-  headers: { Authorization: `Bearer ${store.getters.accessToken}` },
-};
 //Authentication
 
-export const getorderchart = withRetryHandling(
-  ({ StartDate = "", EndDate = "" }) => {
-    return get(
-      `${urls.ORDER_TREND}?EndDate=${EndDate}&StartDate=${StartDate}`,
-      config
-    );
-  }
-);
-export const getchart = withRetryHandling(
-  ({ StartDate = "", EndDate = "" }) => {
-    return get(
-      `${urls.CHART_TREND}?EndDate=${EndDate}&StartDate=${StartDate}`,
-      config
-    );
-  }
-);
+export const getPosts = withRetryHandling(({ page = 1, perPage = 10 }) => {
+  return get(
+    `${process.env.VUE_APP_API_URL}?per_page=${perPage}&page=${page}&_fields=featured,id,excerpt,slug,parselyMeta,date`
+  );
+});
+
+export const getPostById = withRetryHandling(({ id }) => {
+  return get(`${process.env.VUE_APP_API_URL}/${id}`);
+});

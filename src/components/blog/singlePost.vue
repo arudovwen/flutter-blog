@@ -1,22 +1,26 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <article class="article">
     <div class="article__image__container">
-      <img class="article__image" :src="post.photo" />
+      <img
+        class="article__image"
+        :src="post.parselyMeta['parsely-image-url']"
+      />
     </div>
     <div class="article__content">
       <div class="article__sub">
-        <span class="article__tag">{{ post.tag }}</span>
+        <span class="article__tag">{{
+          post.parselyMeta["parsely-section"]
+        }}</span>
         <span class="article__circle" />
-        <span class="article__date">1 Hour Ago</span>
+        <span class="article__date">{{ moment(post.date).fromNow() }}</span>
       </div>
-      <h1 class="article__header">{{ post.title }}</h1>
-      <div class="article__body">
-        {{ truncatedText }}
-      </div>
+      <h1 class="article__header">{{ post.parselyMeta["parsely-title"] }}</h1>
+      <div class="article__body" v-html="truncatedText"></div>
 
       <div class="article__footer">
         <span class="article__footer__time">3 Min Read</span>
-        <router-link :to="`/post/${post.title}/${post.id}`">
+        <router-link :to="`/post/${post.slug}/${post.id}`">
           <span class="article__footer__link"
             >Read more <img src="@/assets/images/arrow.svg"
           /></span>
@@ -27,6 +31,7 @@
 </template>
 <script setup>
 import { defineProps, computed } from "vue";
+import moment from "moment";
 
 const props = defineProps({
   post: {
@@ -35,7 +40,7 @@ const props = defineProps({
 });
 // eslint-disable-next-line no-unused-vars
 const truncatedText = computed(() => {
-  return `${props.post.content.substr(0, 200)}...`;
+  return `${props.post.excerpt.rendered.substr(0, 200)}`;
 });
 </script>
 <style lang="scss" scoped>
@@ -128,13 +133,12 @@ const truncatedText = computed(() => {
       line-height: 21px;
       color: var(--textColor);
       flex: 1;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      height: 74px;
-      overflow: hidden;
-
-      .article__text {
+      p {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        height: 74px;
+        overflow: hidden;
       }
     }
     .article__footer {

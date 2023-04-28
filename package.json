@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "infinite-loading-vue3": "^1.0.1",
+    "moment": "^2.29.4",
     "register-service-worker": "^1.7.2",
     "v3-infinite-loading": "^1.2.2",
     "vue": "^3.2.13",

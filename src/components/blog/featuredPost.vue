@@ -1,22 +1,25 @@
 <template>
-  <article class="article">
+  <article class="article" v-if="post">
     <div class="article__image__container">
-      <img class="article__image" :src="featured.photo" />
+      <img
+        class="article__image"
+        :src="post.parselyMeta['parsely-image-url']"
+      />
     </div>
     <div class="article__content">
       <div class="article__sub">
-        <span class="article__tag">{{ featured.tag }}</span>
+        <span class="article__tag">{{
+          post.parselyMeta["parsely-section"]
+        }}</span>
         <span class="article__circle" />
-        <span class="article__date">1 Hour Ago</span>
+        <span class="article__date">{{ moment(post.date).fromNow() }}</span>
       </div>
-      <h1 class="article__header">{{ featured.title }}</h1>
-      <div class="article__body">
-        <p class="article__text">{{ truncatedText }}</p>
-      </div>
+      <h1 class="article__header">{{ post.parselyMeta["parsely-title"] }}</h1>
+      <div class="article__body" v-html="truncatedText"></div>
 
       <div class="article__footer">
         <span class="article__footer__time">3 Min Read</span>
-        <router-link :to="`/post/${featured.title}/${featured.id}`">
+        <router-link :to="`/post/${post.slug}/${post.id}`">
           <span class="article__footer__link"
             >Read more <img src="@/assets/images/arrow.svg"
           /></span>
@@ -26,15 +29,15 @@
   </article>
 </template>
 <script setup>
-import { defineProps, computed } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
+import moment from "moment";
 
-const props = defineProps({
-  featured: {
-    type: Object,
-  },
-});
+const store = useStore();
+const post = computed(() => store.getters.posts[0]);
+
 const truncatedText = computed(() => {
-  return `${props.featured.content.substr(0, 500)}`;
+  return `${post.value.excerpt.rendered.substr(0, 500)}`;
 });
 </script>
 <style lang="scss" scoped>
