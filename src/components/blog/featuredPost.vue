@@ -6,19 +6,15 @@
       role="img"
       aria-label="Post featured image"
     >
-      <img
-        class="post__image"
-        :src="
-          post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500&h=280')
-        "
-        :alt="post.slug"
-      />
       <link
         rel="preload"
         as="image"
-        :href="
-          post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500&h=280')
-        "
+        :href="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500')"
+      />
+      <img
+        class="post__image"
+        :src="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500')"
+        :alt="post.slug"
       />
     </div>
     <div class="post__content" v-if="post?.parselyMeta">
