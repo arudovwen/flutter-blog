@@ -17,7 +17,7 @@
         :alt="post.slug"
       />
     </div>
-    <div class="post__content fade-in" v-if="post?.parselyMeta">
+    <div class="post__content" v-if="post?.parselyMeta">
       <div class="post__sub">
         <span class="post__tag">{{ post.parselyMeta["parsely-section"] }}</span>
         <span class="post__circle" />
@@ -90,6 +90,7 @@ const truncatedText = computed(() => {
     height: 300px;
     overflow: hidden;
     background-color: #f5f5f5;
+    background-image: url("https://placehold.co/450x300?text=.");
     @media only screen and (max-width: 768px) {
       width: 100%;
       height: auto;
