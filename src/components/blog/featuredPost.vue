@@ -1,5 +1,5 @@
 <template>
-  <article class="post fade-in" v-if="post">
+  <article class="post" v-if="post">
     <div
       class="post__image__container"
       v-if="post?.parselyMeta"
@@ -17,7 +17,7 @@
         :alt="post.slug"
       />
     </div>
-    <div class="post__content" v-if="post?.parselyMeta">
+    <div class="post__content fade-in" v-if="post?.parselyMeta">
       <div class="post__sub">
         <span class="post__tag">{{ post.parselyMeta["parsely-section"] }}</span>
         <span class="post__circle" />
@@ -134,6 +134,7 @@ const truncatedText = computed(() => {
         font-size: 12px;
         line-height: 14px;
         color: var(--textColor);
+        min-width: 84px;
       }
     }
     .post__header {
@@ -180,6 +181,7 @@ const truncatedText = computed(() => {
         display: flex;
         align-items: center;
         column-gap: 2px;
+        min-width: 84px;
       }
     }
   }

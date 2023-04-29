@@ -126,6 +126,7 @@ const truncatedText = computed(() => {
         font-size: 12px;
         line-height: 14px;
         color: var(--textColor);
+        min-width: 84px;
       }
     }
     .post__header {
@@ -188,6 +189,7 @@ const truncatedText = computed(() => {
         display: flex;
         align-items: center;
         column-gap: 2px;
+        min-width: 84px;
       }
     }
   }
