@@ -8,7 +8,7 @@
     <div class="socials" role="img" aria-label="Site social links">
       <div class="socials__icon" v-for="icon in socialIcons" :key="icon.alt">
         <router-link to="#">
-          <img :src="icon.src" :alt="icon.alt" width="20"
+          <img :src="icon.src" :alt="icon.alt" width="20" height="20"
         /></router-link>
       </div>
     </div>

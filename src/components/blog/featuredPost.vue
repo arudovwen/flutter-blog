@@ -37,8 +37,15 @@
           )}/${post.id}`"
         >
           <span class="post__footer__link"
-            >Read more <img src="@/assets/images/arrow.svg" alt="read more"
-          /></span>
+            >Read more
+            <img
+              src="@/assets/images/arrow.svg"
+              alt="read more"
+              width="20"
+              height="16"
+            />
+            <span class="screen-reader-text">Click here to read more</span>
+          </span>
         </router-link>
       </div>
     </div>
