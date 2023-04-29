@@ -86,7 +86,7 @@ const truncatedText = computed(() => {
     row-gap: 10px;
   }
   .post__image__container {
-    width: 400px;
+    width: 450px;
     height: 300px;
     overflow: hidden;
     background-color: #f5f5f5;
