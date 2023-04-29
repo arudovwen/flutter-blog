@@ -3,7 +3,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   pwa: {
     name: "flutter-blog",
-    themeColor: "#fff",
+    themeColor: "#000",
     msTileColor: "#fff",
     appleMobileWbeAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "#fff",
