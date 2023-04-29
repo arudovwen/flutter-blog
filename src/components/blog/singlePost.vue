@@ -1,7 +1,12 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
   <article class="post" v-animate-onscroll="'fade-in'" v-if="post">
-    <div class="post__image__container" v-if="post?.parselyMeta">
+    <div
+      class="post__image__container"
+      v-if="post?.parselyMeta"
+      role="img"
+      aria-label="Post featured image"
+    >
       <img
         class="post__image"
         :src="post.parselyMeta['parsely-image-url']"
@@ -15,7 +20,16 @@
         <span class="post__circle" />
         <span class="post__date">{{ moment(post.date).fromNow() }}</span>
       </div>
-      <h1 class="post__header" v-html="post?.parselyMeta['parsely-title']"></h1>
+      <router-link
+        :to="`/post/${encodeURIComponent(
+          post.parselyMeta['parsely-title'].replaceAll(' ', '-')
+        )}/${post.id}`"
+      >
+        <h2
+          class="post__header"
+          v-html="post?.parselyMeta['parsely-title']"
+        ></h2>
+      </router-link>
       <div class="post__body" v-html="truncatedText"></div>
 
       <div class="post__footer">
@@ -26,7 +40,7 @@
           )}/${post.id}`"
         >
           <span class="post__footer__link"
-            >Read more <img src="@/assets/images/arrow.svg"
+            >Read more <img src="@/assets/images/arrow.svg" alt="read more"
           /></span>
         </router-link>
       </div>
