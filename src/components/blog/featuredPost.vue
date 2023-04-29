@@ -8,8 +8,17 @@
     >
       <img
         class="post__image"
-        :src="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500')"
+        :src="
+          post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500&h=280')
+        "
         :alt="post.slug"
+      />
+      <link
+        rel="preload"
+        as="image"
+        :href="
+          post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500&h=280')
+        "
       />
     </div>
     <div class="post__content" v-if="post?.parselyMeta">
@@ -84,6 +93,7 @@ const truncatedText = computed(() => {
     width: 500px;
     height: 280px;
     overflow: hidden;
+    background-color: #f5f5f5;
     @media only screen and (max-width: 768px) {
       width: 100%;
       height: auto;
