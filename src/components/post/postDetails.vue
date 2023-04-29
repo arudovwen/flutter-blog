@@ -3,7 +3,7 @@
     <div class="post__image__container" v-if="post?.parselyMeta">
       <img
         class="post__image"
-        :src="post?.parselyMeta['parsely-image-url']"
+        :src="post?.parselyMeta['parsely-image-url'].replace('w=680', 'w=768')"
         :alt="post?.slug"
         loading="lazy"
       />

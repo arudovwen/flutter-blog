@@ -8,7 +8,7 @@
     >
       <img
         class="post__image"
-        :src="post.parselyMeta['parsely-image-url']"
+        :src="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500')"
         :alt="post.slug"
       />
     </div>

@@ -16,6 +16,7 @@
     "register-service-worker": "^1.7.2",
     "v3-infinite-loading": "^1.2.2",
     "vue": "^3.2.13",
+    "vue-resized-image": "^1.0.2",
     "vue-router": "^4.0.3",
     "vue3-animate-onscroll": "^1.0.6",
     "vue3-text-clamp": "^0.1.1",
