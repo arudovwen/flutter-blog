@@ -40,7 +40,10 @@ function payWithFlutterwave() {
 }
 const isMember = computed(() => store.getters.isMember);
 onMounted(() => {
-  if (route.query.status.toLowerCase() === "successful" && route.query.tx_ref) {
+  if (
+    route.query?.status?.toLowerCase() === "successful" &&
+    route.query?.tx_ref
+  ) {
     store.commit("SET_IS_MEMBER", true);
   }
 });

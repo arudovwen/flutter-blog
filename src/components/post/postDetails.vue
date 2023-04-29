@@ -15,7 +15,7 @@
 
         <span class="post__date">{{ moment(post.date).fromNow() }}</span>
       </div>
-      <h1 class="post__header">{{ post?.parselyMeta["parsely-title"] }}</h1>
+      <h1 class="post__header" v-html="post?.parselyMeta['parsely-title']"></h1>
       <div class="post__body" v-html="post.content.rendered"></div>
     </div>
   </section>
