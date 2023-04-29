@@ -5,6 +5,7 @@
         class="post__image"
         :src="post?.parselyMeta['parsely-image-url']"
         :alt="post?.slug"
+        loading="lazy"
       />
     </div>
     <div class="post__content" v-if="post?.parselyMeta">
