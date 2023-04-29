@@ -1,5 +1,5 @@
 <template>
-  <section class="post" v-if="post">
+  <section class="post fade-in" v-if="post">
     <div class="post__image__container" v-if="post?.parselyMeta">
       <img
         class="post__image"

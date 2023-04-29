@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { provide, ref } from "vue";
+import { provide, ref, computed } from "vue";
 import { useStore } from "vuex";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
@@ -33,12 +33,16 @@ let perPage = 10;
 const isLoading = ref(true);
 const store = useStore();
 
-// Fetch all posts
+const posts = computed(() => store.getters.posts.slice(1));
+
+// Fetching all posts
 const fetchPosts = async ($state) => {
   getPosts({ page, perPage })
     .then(({ data }) => {
       isLoading.value = false;
-      if (data.length < perPage) $state.complete();
+
+      // Checking if on last page of total posts length is 25 then stop
+      if (data.length < perPage || posts.value.length >= 25) $state.complete();
       else {
         $state.loaded();
       }

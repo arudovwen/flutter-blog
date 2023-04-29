@@ -1,5 +1,5 @@
 <template>
-  <div class="cta">
+  <div class="cta" v-if="!isMember">
     <h2 class="cta__header">Join our Team of Writers</h2>
     <div class="cta__text">
       <p class="cta__text--margin">
@@ -10,11 +10,41 @@
         <span class="bold">$25 fee</span> and everything is ready to go.
       </p>
     </div>
-    <button class="cta__btn cta__btn--lg cta__bg--black cta__color--white">
+    <button
+      @click="payWithFlutterwave()"
+      class="cta__btn cta__btn--lg cta__bg--black cta__color--white"
+    >
       JOIN US
     </button>
   </div>
+
+  <div class="cta" v-else>
+    <h2 class="cta__header">Welcome to our Team</h2>
+    <div class="cta__text">
+      <p class="cta__text--margin">
+        You are a member of dasdas Team of Writers
+      </p>
+    </div>
+  </div>
 </template>
+<script setup>
+import { useRoute } from "vue-router";
+import { onMounted, computed } from "vue";
+import { useStore } from "vuex";
+import { makePayment } from "@/plugins/flutterwave";
+
+const store = useStore();
+const route = useRoute();
+function payWithFlutterwave() {
+  makePayment(2500);
+}
+const isMember = computed(() => store.getters.isMember);
+onMounted(() => {
+  if (route.query.status.toLowerCase() === "successful" && route.query.tx_ref) {
+    store.commit("SET_IS_MEMBER", true);
+  }
+});
+</script>
 <style scoped lang="scss">
 .cta {
   padding: 9em 3em;

@@ -1,5 +1,5 @@
 <template>
-  <article class="post" v-if="post">
+  <article class="post fade-in" v-if="post">
     <div class="post__image__container" v-if="post?.parselyMeta">
       <img
         class="post__image"
@@ -36,6 +36,8 @@ import { useStore } from "vuex";
 import moment from "moment";
 
 const store = useStore();
+
+// Setting first post as featured
 const post = computed(() => store.getters.posts[0]);
 
 //truncate excerpt text

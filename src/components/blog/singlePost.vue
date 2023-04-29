@@ -1,6 +1,6 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-  <article class="post" v-if="post">
+  <article class="post" v-animate-onscroll="'fade-in'" v-if="post">
     <div class="post__image__container" v-if="post?.parselyMeta">
       <img
         class="post__image"
@@ -10,9 +10,7 @@
     </div>
     <div class="post__content" v-if="post?.parselyMeta">
       <div class="post__sub">
-        <span class="post__tag">{{
-          post.parselyMeta["parsely-section"]
-        }}</span>
+        <span class="post__tag">{{ post.parselyMeta["parsely-section"] }}</span>
         <span class="post__circle" />
         <span class="post__date">{{ moment(post.date).fromNow() }}</span>
       </div>

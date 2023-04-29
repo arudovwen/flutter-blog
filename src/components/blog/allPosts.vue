@@ -12,6 +12,7 @@ import SinglePost from "./singlePost.vue";
 
 const store = useStore();
 
+// Setting all post except first post
 const posts = computed(() => store.getters.posts.slice(1));
 </script>
 <style lang="scss" scoped>
