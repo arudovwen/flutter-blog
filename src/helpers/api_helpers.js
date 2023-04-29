@@ -1,4 +1,7 @@
-import axios from "axios";
+import Axios from "axios";
+import { setupCache } from "axios-cache-interceptor";
+
+const axios = setupCache(Axios);
 
 //apply base url for axios
 const API_URL = process.env.VUE_APP_API_URL;
