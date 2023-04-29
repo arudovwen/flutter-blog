@@ -6,12 +6,8 @@
       role="img"
       aria-label="Post featured image"
     >
-      <link
-        rel="preload"
-        as="image"
-        :href="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=450')"
-      />
       <img
+        fetchpriority="high"
         class="post__image"
         :src="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=450')"
         :alt="post.slug"
@@ -90,7 +86,6 @@ const truncatedText = computed(() => {
     height: 300px;
     overflow: hidden;
     background-color: #f5f5f5;
-    background-image: url("https://placehold.co/450x300?text=.");
     @media only screen and (max-width: 768px) {
       width: 100%;
       height: auto;
