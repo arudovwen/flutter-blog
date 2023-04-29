@@ -9,11 +9,11 @@
       <link
         rel="preload"
         as="image"
-        :href="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500')"
+        :href="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=450')"
       />
       <img
         class="post__image"
-        :src="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=500')"
+        :src="post.parselyMeta['parsely-image-url'].replace('w=680', 'w=450')"
         :alt="post.slug"
       />
     </div>
@@ -86,8 +86,8 @@ const truncatedText = computed(() => {
     row-gap: 10px;
   }
   .post__image__container {
-    width: 500px;
-    height: 280px;
+    width: 400px;
+    height: 300px;
     overflow: hidden;
     background-color: #f5f5f5;
     @media only screen and (max-width: 768px) {
