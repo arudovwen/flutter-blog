@@ -43,6 +43,7 @@ const post = computed(() => {
   .post__image__container {
     width: 100%;
     height: 200px;
+    background-color: #f7f8fa;
 
     .post__image {
       width: 100%;

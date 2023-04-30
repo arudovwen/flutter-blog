@@ -1,13 +1,13 @@
 <template>
   <default-layout>
     <template #content>
-      <LoaderComponent v-if="isLoading" />
+      <LoaderComponent v-if="pageLoading" />
 
       <div v-else>
         <FeaturedPost />
         <AllPost />
+        <CallToAction />
       </div>
-      <CallToAction v-if="!isLoading" />
     </template>
   </default-layout>
 </template>
@@ -25,6 +25,7 @@ import { getPosts } from "@/services/blogservice";
 
 let page = 1;
 let perPage = 10;
+const pageLoading = ref(true);
 const isLoading = ref(true);
 const store = useStore();
 
@@ -33,13 +34,13 @@ const fetchPosts = async () => {
   isLoading.value = true;
   getPosts({ page, perPage })
     .then(({ data }) => {
-      isLoading.value = false;
+      pageLoading.value = isLoading.value = false;
 
       store.commit("SET_POSTS", data);
       page++;
     })
     .catch(() => {
-      isLoading.value = false;
+      pageLoading.value = isLoading.value = false;
     });
 };
 
