@@ -33,7 +33,9 @@
       <div class="post__body" v-html="truncatedText"></div>
 
       <div class="post__footer">
-        <span class="post__footer__time">3 Min Read</span>
+        <span class="post__footer__time"
+          >{{ Math.floor(Math.random() * 11) + 3 }} Min Read</span
+        >
         <router-link
           :to="`/post/${encodeURIComponent(
             post.parselyMeta['parsely-title'].replaceAll(' ', '-')
