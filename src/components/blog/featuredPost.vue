@@ -33,7 +33,7 @@
           v-html="post?.parselyMeta['parsely-title']"
         ></h1>
       </router-link>
-      <div class="post__body" v-html="truncatedText"></div>
+      <div class="post__body" v-html="post?.excerpt.rendered"></div>
       <div class="post__footer">
         <span class="post__footer__time"
           >{{ Math.floor(Math.random() * 11) + 3 }} Min Read</span
@@ -69,11 +69,6 @@ const store = useStore();
 
 // Setting first post as featured
 const post = computed(() => store.getters.posts[0]);
-
-//truncate excerpt text
-const truncatedText = computed(() => {
-  return `${post.value.excerpt.rendered.substr(0, 500)}`;
-});
 </script>
 <style lang="scss" scoped>
 .post {

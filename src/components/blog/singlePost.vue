@@ -30,7 +30,9 @@
           v-html="post?.parselyMeta['parsely-title']"
         ></h2>
       </router-link>
-      <div class="post__body" v-html="truncatedText"></div>
+      <div class="post__body truncate__text--4">
+        {{ truncate(post?.excerpt.rendered, 150, "...") }}
+      </div>
 
       <div class="post__footer">
         <span class="post__footer__time"
@@ -59,21 +61,21 @@
   </article>
 </template>
 <script setup>
-import { defineProps, computed } from "vue";
+import { defineProps } from "vue";
 import moment from "moment";
 
-const props = defineProps({
+defineProps({
   post: {
     type: Object,
   },
 });
-
-//truncate excerpt text
-const truncatedText = computed(() => {
-  return `${props.post.excerpt.rendered.substr(0, 200)}${
-    props.post.excerpt.rendered.length >= 200 ? "..." : ""
-  }`;
-});
+function truncate(text, length, clamp) {
+  clamp = clamp || "...";
+  var node = document.createElement("div");
+  node.innerHTML = text;
+  var content = node.textContent;
+  return content.length > length ? content.slice(0, length) + clamp : content;
+}
 </script>
 <style lang="scss" scoped>
 .post {
@@ -136,10 +138,12 @@ const truncatedText = computed(() => {
     .post__header {
       font-style: normal;
       font-weight: 900;
-      font-size: 22px;
-      line-height: 26px;
+      font-size: 18px;
+      line-height: 22px;
       color: var(--headerColor);
-      white-space: nowrap;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 320px;
@@ -166,12 +170,13 @@ const truncatedText = computed(() => {
       line-height: 21px;
       color: var(--textColor);
       flex: 1;
-      p {
+
+      ~ p {
         display: -webkit-box;
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
-        height: 74px;
         overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
     .post__footer {
