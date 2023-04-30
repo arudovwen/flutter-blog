@@ -50,14 +50,14 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 .cta {
-  padding: 9em 3em;
+  padding: 9em 0;
   text-align: center;
   display: flex;
   align-items: center;
   text-align: center;
   flex-direction: column;
   @media only screen and (max-width: 1024px) {
-    padding: 8em 1.5em;
+    padding: 8em 0;
   }
 
   .cta__header {
@@ -104,9 +104,13 @@ onMounted(() => {
     outline: none;
     border: 1px solid var(--black);
     font-size: 18px;
+    border-radius: 4px;
     cursor: pointer;
+    @media screen and (max-width: 565px) {
+      font-size: 15px;
+    }
     &:hover {
-      opacity: 0.9;
+      opacity: 0.8;
       -webkit-animation: heartbeat 1.5s ease-in-out both;
       animation: heartbeat 1.5s ease-in-out both;
     }
