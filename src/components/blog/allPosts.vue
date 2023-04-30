@@ -4,7 +4,7 @@
     <SinglePost v-for="post in posts" :key="post.id" :post="post" />
   </div>
   <div class="load__more">
-    <button class="load__more__btn" @click="fetchPosts()" :disabled="c">
+    <button class="load__more__btn" @click="fetchPosts()" :disabled="isLoading">
       {{ isLoading ? "Fetching articles..." : " More articles" }}
     </button>
   </div>

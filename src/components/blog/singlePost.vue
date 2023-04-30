@@ -30,7 +30,7 @@
           v-html="post?.parselyMeta['parsely-title']"
         ></h2>
       </router-link>
-      <div class="post__body truncate__text--4">
+      <div class="post__body">
         {{ truncate(post?.excerpt.rendered, 150, "...") }}
       </div>
 
