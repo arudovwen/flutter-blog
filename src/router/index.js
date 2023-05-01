@@ -44,7 +44,7 @@ const routes = [
     path: "/offline",
     name: "Offline",
     meta: {
-      title: "You Are Offline -Flutter Blog",
+      title: "You Are Offline - Flutter Blog",
       metaTags: [
         {
           name: "description",
@@ -57,7 +57,7 @@ const routes = [
       ],
     },
     component: () =>
-      import(/* webpackChunkName: "Offline" */ "../OfflineApp.vue"),
+      import(/* webpackChunkName: "Offline" */ "../views/OfflineView.vue"),
   },
   {
     path: "/:catchAll(.*)",
