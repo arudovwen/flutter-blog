@@ -21,7 +21,7 @@ const routes = [
       import(/* webpackChunkName: "blog" */ "../views/BlogView.vue"),
   },
   {
-    path: "/post/:name/:id",
+    path: "/post/:id/:name",
     name: "post",
     meta: {
       title: "Post",

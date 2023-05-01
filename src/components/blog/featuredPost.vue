@@ -19,9 +19,9 @@
         <span class="post__date">{{ moment(post.date).fromNow() }}</span>
       </div>
       <router-link
-        :to="`/post/${encodeURIComponent(
+        :to="`/post/${post.id}/${encodeURIComponent(
           post.parselyMeta['parsely-title'].replaceAll(' ', '-')
-        )}/${post.id}`"
+        )}`"
       >
         <h1
           class="post__header"

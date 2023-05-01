@@ -39,9 +39,9 @@
           >{{ Math.floor(Math.random() * 11) + 3 }} Min Read</span
         >
         <router-link
-          :to="`/post/${encodeURIComponent(
+          :to="`/post/${post.id}/${encodeURIComponent(
             post.parselyMeta['parsely-title'].replaceAll(' ', '-')
-          )}/${post.id}`"
+          )}`"
         >
           <span class="post__footer__link"
             >Read full
