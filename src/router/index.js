@@ -40,6 +40,31 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "post" */ "../views/PostView.vue"),
   },
+  {
+    path: "/offline",
+    name: "Offline",
+    meta: {
+      title: "You Are Offline -Flutter Blog",
+      metaTags: [
+        {
+          name: "description",
+          content: "You Are Offline",
+        },
+        {
+          property: "og:description",
+          content: "You Are Offline",
+        },
+      ],
+    },
+    component: () =>
+      import(/* webpackChunkName: "Offline" */ "../OfflineApp.vue"),
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "Not found",
+    component: () =>
+      import(/* webpackChunkName: "notfound" */ "../views/NotFound"),
+  },
 ];
 
 // handle scroll

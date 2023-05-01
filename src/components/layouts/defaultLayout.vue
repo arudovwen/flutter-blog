@@ -1,7 +1,7 @@
 <template>
   <main class="container">
     <!-- Navigation here  -->
-    <TopHeader />
+    <AppHeader />
 
     <!-- Page here -->
     <div class="content">
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import TopHeader from "../navigation/topHeader.vue";
+import AppHeader from "../navigation/AppHeader.vue";
 import ScrollToTop from "../scrollToTop.vue";
 </script>
 <style lang="scss" scoped>
