@@ -3,10 +3,10 @@ module.exports = defineConfig({
   transpileDependencies: true,
   pwa: {
     name: "Flutter blog",
-    themeColor: "#000",
-    msTileColor: "#fff",
+    themeColor: "#2c2c2c",
+    msTileColor: "#2c2c2c",
     appleMobileWbeAppCapable: "yes",
-    appleMobileWebAppStatusBarStyle: "#fff",
+    appleMobileWebAppStatusBarStyle: "#2c2c2c",
     icons: {
       favicon32: "img/icons/favicon-32x32.png",
       favicon16: "img/icons/favicon-16x16.png",
@@ -19,7 +19,7 @@ module.exports = defineConfig({
       exclude: [/_redirect/, /\.map$/, /_headers/],
     },
     manifestOptions: {
-      background_color: "#fff",
+      background_color: "#2c2c2c",
     },
   },
 });
