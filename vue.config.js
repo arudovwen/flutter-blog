@@ -15,7 +15,7 @@ module.exports = defineConfig({
     },
     workboxPluginMode: "GenerateSW",
     workboxOptions: {
-      navigateFallback: "/offline",
+      navigateFallback: null,
       exclude: [/_redirect/, /\.map$/, /_headers/],
     },
     manifestOptions: {
